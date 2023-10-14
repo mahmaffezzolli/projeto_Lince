@@ -67,8 +67,10 @@ class VehicleProvider with ChangeNotifier {
               .toLowerCase()
               .contains(value.toLowerCase()))
           .map((brand) {
+        final brandId = int.parse(brand['codigo'].toString());
+
         return {
-          'id': brand['codigo'],
+          'id': brandId,
           'name': brand['nome'],
         };
       }).toList();
@@ -114,4 +116,7 @@ class VehicleProvider with ChangeNotifier {
     modelSuggestions = suggestions;
     notifyListeners();
   }
+
+
+
 }

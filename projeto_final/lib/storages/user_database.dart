@@ -1,6 +1,7 @@
 import 'package:path/path.dart';
+import 'package:projeto_final/store_list_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
-
 import '../entities/store.dart';
 
 class StoreController {
@@ -9,7 +10,33 @@ class StoreController {
     return database;
   }
 
-  Future<void> delete(int id) async {
+  Future<List<Store>> searchStores(String query) async {
+    final database = await initDatabase();
+
+    final stores = await database.rawQuery('''
+    SELECT * FROM ${TableStore.tableName}
+    WHERE ${TableStore.nameColumn} LIKE ? OR ${TableStore.cnpjColumn} LIKE ?
+  ''', ['%$query%', '%$query%']);
+
+    if (stores.isNotEmpty) {
+      return stores.map((storeMap) => TableStore.fromMap(storeMap)).toList();
+    }
+
+    return [];
+  }
+
+  Future<void> updateStore(Store store) async {
+    final database = await initDatabase();
+
+    await database.update(
+      TableStore.tableName,
+      TableStore.toMap(store),
+      where: '${TableStore.id} = ?',
+      whereArgs: [store.id],
+    );
+  }
+
+  Future<void> deleteStore(int id) async {
     final database = await initDatabase();
 
     await database.delete(
@@ -17,6 +44,7 @@ class StoreController {
       where: '${TableStore.id} = ?',
       whereArgs: [id],
     );
+
   }
 
   Future<List<Store>> getAllStores() async {
@@ -68,6 +96,15 @@ class StoreController {
       },
       version: 1,
     );
+  }
+
+  Future<bool> doesRecordExistWithId(int id) async {
+    final database = await initDatabase();
+    final count = Sqflite.firstIntValue(await database.rawQuery(
+      'SELECT COUNT(*) FROM ${TableStore.tableName} WHERE ${TableStore.id} = ?',
+      [id],
+    ));
+    return count! > 0;
   }
 }
 

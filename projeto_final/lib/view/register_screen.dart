@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -24,26 +26,31 @@ class RegisterScreen extends StatelessWidget {
       home: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: null,
-        body: Stack(
-          children: [
-            Positioned.fill(
-              bottom: 90,
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Color.fromRGBO(246, 244, 235, 1),
-                  borderRadius: BorderRadius.vertical(
-                    bottom: Radius.circular(50),
+        body: SingleChildScrollView(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  bottom: 90,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Color.fromRGBO(246, 244, 235, 1),
+                      borderRadius: BorderRadius.vertical(
+                        bottom: Radius.circular(50),
+                      ),
+                    ),
+                    child: Inputs(
+                      formKey: _formKey,
+                      cnpjController: _cnpjController,
+                      storeNameController: _storeNameController,
+                      passwordController: _passwordController,
+                    ),
                   ),
                 ),
-                child: Inputs(
-                  formKey: _formKey,
-                  cnpjController: _cnpjController,
-                  storeNameController: _storeNameController,
-                  passwordController: _passwordController,
-                ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -174,6 +181,8 @@ class Inputs extends StatelessWidget {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Campo obrigatório';
+                      } else if (value.length > 120) {
+                        return 'O nome deve conter 120 caracters ou menos';
                       }
                       return null;
                     },
@@ -191,10 +200,13 @@ class Inputs extends StatelessWidget {
                         Autonomy.special,
                       ])
                         DropdownMenuItem(
+
                           value: autonomy,
                           child: Text(
                             autonomy.label,
-                            style: const TextStyle(color: Colors.black),
+                            style: const TextStyle(
+                                color: Color.fromARGB(255, 0, 0, 0),
+                            ),
                           ),
                         ),
                     ],
@@ -209,6 +221,7 @@ class Inputs extends StatelessWidget {
                         ),
                       ),
                       focusedBorder: UnderlineInputBorder(
+
                         borderSide: BorderSide(
                             color: Color.fromARGB(255, 90, 90, 90), width: 1),
                       ),
@@ -221,7 +234,7 @@ class Inputs extends StatelessWidget {
                       ),
                     ),
                     style: const TextStyle(
-                      color: Color.fromARGB(255, 255, 255, 255),
+                      color: Colors.grey,
                     ),
                   ),
                   TextFormField(
@@ -255,6 +268,16 @@ class Inputs extends StatelessWidget {
                           color: const Color.fromARGB(255, 90, 90, 90),
                         ),
                       ),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          String randomPassword = generateRandomPassword();
+                          passwordController.text = randomPassword;
+                        },
+                        icon: const Icon(
+                          Icons.refresh, // Ícone de atualização
+                          color: Color.fromARGB(255, 90, 90, 90),
+                        ),
+                      ),
                     ),
                     obscureText: !passwordVisibilityProvider.isVisible,
                     validator: (value) {
@@ -270,11 +293,10 @@ class Inputs extends StatelessWidget {
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
                           final store = Store(
-                            id: 0,
                             cnpj: cnpjController.text,
                             name: storeNameController.text,
                             password: passwordController.text,
-                            autonomy: selectedAutonomy!.label,
+                            autonomy: selectedAutonomy?.label ?? '',
                           );
 
                           final BuildContext currentContext = context;
@@ -282,8 +304,6 @@ class Inputs extends StatelessWidget {
                           try {
                             final storeController = StoreController();
                             await storeController.initDatabase();
-                            await storeController.delete(1);
-                            await storeController.delete(0);
                             await storeController.insert(store);
                             // ignore: use_build_context_synchronously
                             ScaffoldMessenger.of(currentContext).showSnackBar(
@@ -291,7 +311,11 @@ class Inputs extends StatelessWidget {
                                 content: Text('Loja cadastrada com sucesso!'),
                               ),
                             );
+                            cnpjController.clear();
+                            storeNameController.clear();
+                            passwordController.clear();
                           } catch (e) {
+                            // ignore: use_build_context_synchronously
                             ScaffoldMessenger.of(currentContext).showSnackBar(
                               SnackBar(
                                 content: Text('Erro ao cadastrar a loja: $e'),
@@ -304,10 +328,13 @@ class Inputs extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
                         ),
-                        minimumSize: const Size(20, 40),
+                        minimumSize: const Size(100, 40),
                         backgroundColor: const Color.fromRGBO(70, 130, 169, 1),
                       ),
-                      child: const Text("Cadastrar loja"),
+                      child: const Text(
+                        "Cadastrar loja",
+                        style: TextStyle(fontSize: 14),
+                      ),
                     ),
                   ),
                 ],
@@ -329,4 +356,18 @@ class PasswordVisibilityProviderRegister extends ChangeNotifier {
     _isVisible = !_isVisible;
     notifyListeners();
   }
+}
+
+String generateRandomPassword() {
+  const String chars =
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  Random random = Random();
+  String password = "";
+
+  for (int i = 0; i < 15; i++) {
+    int randomIndex = random.nextInt(chars.length);
+    password += chars[randomIndex];
+  }
+
+  return password;
 }
