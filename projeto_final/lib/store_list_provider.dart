@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/entities/store.dart';
 import 'package:projeto_final/storages/user_database.dart';
-import 'package:provider/provider.dart';
 
 class StoreListProvider extends ChangeNotifier {
   List<Store> stores = [];
@@ -9,41 +8,43 @@ class StoreListProvider extends ChangeNotifier {
   StoreController userDatabase;
 
   StoreListProvider(this.userDatabase) {
-    _loadStores();
+    loadStores();
   }
 
-  void _loadStores() async {
+
+
+
+
+   Future<List<Store>> loadStores() async {
     try {
       List<Store> loadedStores = await userDatabase.getAllStores();
       stores = loadedStores;
+      return loadedStores;
     } catch (e) {
-      print("Erro ao carregar listagem: $e");
+      throw e;
     }
   }
 
   void deleteStore(Store store) async {
-    notifyListeners();
-    await userDatabase.deleteStore(store.id!);
-
     final storeIndex = stores.indexWhere((s) => s.id == store.id);
 
     if (storeIndex != -1) {
+      await userDatabase.deleteStore(store.id!);
       stores.removeAt(storeIndex);
-
       notifyListeners();
+      userDatabase.getAllStores();
     }
-    notifyListeners();
   }
 
-  void updateStore(Store updatedStore) async {
-    //await userDatabase.updateStore(store);
+  void updateStore(Store store) async {
+    await userDatabase.updateStore(store);
     final storeIndex =
-        stores.indexWhere((store) => store.id == updatedStore.id);
+    stores.indexWhere((storeUpdated) => storeUpdated.id == store.id);
 
     if (storeIndex != -1) {
-      stores[storeIndex] = updatedStore;
+      stores[storeIndex] = store;
+      userDatabase.getAllStores();
       notifyListeners();
     }
-
   }
 }

@@ -1,5 +1,9 @@
+// ignore_for_file: unused_import
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 import '../entities/vehicle.dart';
 import 'package:http/http.dart' as http;
 
@@ -116,7 +120,6 @@ class VehicleProvider with ChangeNotifier {
     modelSuggestions = suggestions;
     notifyListeners();
   }
-
 
 
 }

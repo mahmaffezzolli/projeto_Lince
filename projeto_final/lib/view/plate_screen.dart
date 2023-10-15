@@ -14,8 +14,7 @@ class ManufacturePlateScreen extends StatefulWidget {
 }
 
 class _ManufacturePlateScreenState extends State<ManufacturePlateScreen> {
-  final TextEditingController _manufactureYearController =
-      TextEditingController();
+  final TextEditingController _manufactureYearController = TextEditingController();
   final TextEditingController _plateController = TextEditingController();
 
   final maskFormatter = MaskTextInputFormatter(

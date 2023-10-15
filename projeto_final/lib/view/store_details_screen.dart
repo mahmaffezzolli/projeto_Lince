@@ -19,7 +19,7 @@ class StoreDetailsScreen extends StatelessWidget {
               children: [
                 Container(
                   height: 200,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Color.fromRGBO(145, 200, 228, 1),
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(120.0),
@@ -27,14 +27,14 @@ class StoreDetailsScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   top: 50,
                   left: 160,
                   child: Center(
                     child: Icon(
                       Icons.car_rental,
-                      size: 100.0, // Ajuste o tamanho do ícone
-                      color: Colors.white, // Cor do ícone
+                      size: 100.0,
+                      color: Colors.white,
                     ),
                   ),
                 ),
@@ -45,12 +45,12 @@ class StoreDetailsScreen extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    icon: Icon(Icons.arrow_back),
+                    icon: const Icon(Icons.arrow_back),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -60,7 +60,7 @@ class StoreDetailsScreen extends StatelessWidget {
                     width: 350,
                     child: TextFormField(
                       initialValue: store.name,
-                      decoration: InputDecoration(
+                      decoration:const InputDecoration(
                         labelText: 'Store Name',
                         fillColor: Colors.lightBlueAccent,
                         labelStyle: TextStyle(
@@ -72,7 +72,7 @@ class StoreDetailsScreen extends StatelessWidget {
                       },
                     ),
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   Container(
                     width: 350,
                     child: TextFormField(

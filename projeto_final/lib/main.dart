@@ -1,10 +1,12 @@
+// ignore_for_file: unused_local_variable, unused_import, duplicate_ignore
+
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:projeto_final/language_provider.dart';
 import 'package:projeto_final/repositories/vehicle_repositorie.dart';
+import 'package:projeto_final/storages/vehicle_database.dart';
 import 'package:projeto_final/store_list_provider.dart';
 import 'package:projeto_final/theme_provider.dart';
-import 'package:projeto_final/view/date_price_screen.dart';
 import 'package:projeto_final/view/document_name_screen.dart';
 import 'package:projeto_final/view/initial_screen.dart';
 import 'package:projeto_final/view/model_brand_screen.dart';
@@ -13,6 +15,8 @@ import 'package:projeto_final/view/price_purchase_date_screen.dart';
 import 'package:projeto_final/view/settings_screen.dart';
 import 'package:projeto_final/view/start_screen.dart';
 import 'package:projeto_final/view/store_list_screen.dart';
+import 'package:projeto_final/view/vehicle_list_screen.dart';
+import 'package:projeto_final/vehicle_list_provider.dart';
 import 'package:projeto_final/view/vehicle_year_photo_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:projeto_final/storages/user_database.dart';
@@ -27,14 +31,16 @@ void main() async {
 
   final databasesPath = await getDatabasesPath();
   final dbPath = join(databasesPath, 'register.db');
-  // ignore: unused_local_variable
   final database = await openDatabase(
     dbPath,
     onCreate: (db, version) {
       db.execute(TableStore.createTable);
+      db.execute(TableVehicle.createTable);
     },
-    version: 1,
+    version: 2,
   );
+
+  final vehicleDatabase = VehicleController();
   final userDatabase = StoreController();
 
   runApp(
@@ -55,13 +61,17 @@ void main() async {
         ChangeNotifierProvider<VehicleProvider>(
           create: (context) => VehicleProvider(),
         ),
+        ChangeNotifierProvider(create: (_) => VehicleListProvider(VehicleController())),
+
         ChangeNotifierProvider<LanguageProvider>(
           create: (context) => LanguageProvider(),
         ),
-        ChangeNotifierProvider(create: (_) => ThemeProvider(isDarkMode: false),
+        ChangeNotifierProvider(
+          create: (_) => ThemeProvider(isDarkMode: false),
         ),
         ChangeNotifierProvider(
-            create: (_) => StoreListProvider(StoreController())),
+          create: (_) => StoreListProvider(StoreController()),
+        ),
       ],
       child: const MyApp(),
     ),
@@ -86,12 +96,12 @@ class MyApp extends StatelessWidget {
         "/model_brand": (context) => const ModelBrandScreen(),
         "/manufacture_plate": (context) => const ManufacturePlateScreen(),
         "/vehicle_year_photo": (context) => const VehicleYearPhotoScreen(),
-        "/price_purchase": (context) => const PricePurchaseDateScreen(),
+        "/price_purchase": (context) =>  PricePurchaseDateScreen(),
         "/initial": (context) => const Initial(),
         "/storeList": (context) => StoreList(),
         "/settings": (context) => const Settings(),
-        "/document_name": (context) => DocumentName(),
-        "/date_Price": (context) => const DatePrice(),
+        "/document_name": (context) => DocumentNameAndDatePriceScreen(),
+        "/vehicle_details": (context) => VehicleListScreen(),
       },
     );
   }

@@ -1,6 +1,4 @@
 import 'package:path/path.dart';
-import 'package:projeto_final/store_list_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:sqflite/sqflite.dart';
 import '../entities/store.dart';
 

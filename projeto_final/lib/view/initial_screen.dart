@@ -1,7 +1,10 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:projeto_final/view/model_brand_screen.dart';
 import 'package:projeto_final/view/register_screen.dart';
 import 'package:projeto_final/view/settings_screen.dart';
+import 'package:projeto_final/view/vehicle_list_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../theme_provider.dart';
@@ -16,7 +19,8 @@ class Initial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    final ThemeData themeData = themeProvider.getTheme(scaffoldBackgroundColor: fundo);
+    final ThemeData themeData =
+        themeProvider.getTheme(scaffoldBackgroundColor: fundo);
 
     return MaterialApp(
       theme: themeData, // Set the theme here
@@ -76,9 +80,14 @@ class Initial extends StatelessWidget {
                 ),
                 _buildButton(
                   icon: Icons.receipt_long,
-                  text: 'Relatório',
+                  text: 'Lista de carros',
                   onTap: () {
-                    // Navegar para a tela de carrinho
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                        builder: (context) => VehicleListScreen(),
+                    ),
+                    );
                   },
                 ),
               ],
@@ -94,7 +103,7 @@ class Initial extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => DocumentName(),
+                        builder: (context) => DocumentNameAndDatePriceScreen(),
                       ),
                     );
                   },
@@ -130,7 +139,7 @@ class Initial extends StatelessWidget {
         width: 150,
         height: 150,
         decoration: BoxDecoration(
-          color: Color.fromRGBO(145, 200, 228,1),
+          color: Color.fromRGBO(145, 200, 228, 1),
           borderRadius: BorderRadius.circular(10.0),
         ),
         child: Column(
