@@ -8,13 +8,16 @@ import '../repositories/vehicle_repositorie.dart';
 const Color fundo = Color.fromRGBO(70, 130, 169, 1);
 
 class VehicleYearPhotoScreen extends StatefulWidget {
-  const VehicleYearPhotoScreen({Key? key}) : super(key: key);
+  final String? initialVehicleYear;
+
+  const VehicleYearPhotoScreen({Key? key, this.initialVehicleYear})
+      : super(key: key);
 
   @override
-  _VehicleYearPhotoScreenState createState() => _VehicleYearPhotoScreenState();
+  VehicleYearPhotoScreenState createState() => VehicleYearPhotoScreenState();
 }
 
-class _VehicleYearPhotoScreenState extends State<VehicleYearPhotoScreen> {
+class VehicleYearPhotoScreenState extends State<VehicleYearPhotoScreen> {
   File? _selectedImage;
   final TextEditingController _dateController = TextEditingController();
 
@@ -48,10 +51,9 @@ class _VehicleYearPhotoScreenState extends State<VehicleYearPhotoScreen> {
     final vehicleYear = _dateController.text;
 
     if (vehicleYear.isNotEmpty) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => PricePurchaseDateScreen()));     } else {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => PricePurchaseDateScreen()));
+    } else {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -103,123 +105,128 @@ class _VehicleYearPhotoScreenState extends State<VehicleYearPhotoScreen> {
       ),
       home: Scaffold(
         appBar: null,
-        body: Stack(
-          children: [
-            Positioned.fill(
-              bottom: 90,
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Color.fromRGBO(246, 244, 235, 1),
-                  borderRadius: BorderRadius.vertical(
-                    bottom: Radius.circular(50),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Vehicle Registration',
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.blue,
-                        ),
+        body: SingleChildScrollView(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  bottom: 90,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Color.fromRGBO(246, 244, 235, 1),
+                      borderRadius: BorderRadius.vertical(
+                        bottom: Radius.circular(50),
                       ),
-                      const SizedBox(height: 20),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: const LinearProgressIndicator(
-                          value: 0.6,
-                          backgroundColor: Colors.grey,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        style: const TextStyle(color: Colors.black),
-                        controller: _dateController,
-                        readOnly: true,
-                        onTap: () {
-                          _pickDate(context);
-                        },
-                        decoration: const InputDecoration(
-                          labelText: 'Vehicle Year',
-                          labelStyle: TextStyle(color: Colors.black),
-                          suffixIcon: Icon(
-                            Icons.calendar_today,
-                            color: Colors.black,
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.blue, width: 2.0),
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.black, width: 1.0),
-                          ),
-                          hintStyle: TextStyle(color: Colors.black),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          GestureDetector(
-                            onTap: _pickImage,
-                            child: Container(
-                              width: 100,
-                              height: 100,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.blue,
-                                  width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.circular(10.0),
+                          const Text(
+                            'Vehicle Registration',
+                            style: TextStyle(
+                              fontSize: 30,
+                              color: Colors.blue,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: const LinearProgressIndicator(
+                              value: 0.6,
+                              backgroundColor: Colors.grey,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          TextFormField(
+                            style: const TextStyle(color: Colors.black),
+                            controller: _dateController,
+                            readOnly: true,
+                            onTap: () {
+                              _pickDate(context);
+                            },
+                            decoration: const InputDecoration(
+                              labelText: 'Vehicle Year',
+                              labelStyle: TextStyle(color: Colors.black),
+                              suffixIcon: Icon(
+                                Icons.calendar_today,
+                                color: Colors.black,
                               ),
-                              child: _selectedImage != null
-                                  ? Image.file(_selectedImage!,
-                                      fit: BoxFit.cover)
-                                  : const Icon(
-                                      Icons.add_a_photo,
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.blue, width: 2.0),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.black, width: 1.0),
+                              ),
+                              hintStyle: TextStyle(color: Colors.black),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: _pickImage,
+                                child: Container(
+                                  width: 100,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
                                       color: Colors.blue,
-                                      size: 40,
+                                      width: 2.0,
                                     ),
-                            ),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: _selectedImage != null
+                                      ? Image.file(_selectedImage!,
+                                          fit: BoxFit.cover)
+                                      : const Icon(
+                                          Icons.add_a_photo,
+                                          color: Colors.blue,
+                                          size: 40,
+                                        ),
+                                ),
+                              ),
+                              const SizedBox(width: 20),
+                            ],
                           ),
-                          const SizedBox(width: 20),
+                          const SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.arrow_back,
+                                  color: Colors.black,
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.arrow_forward,
+                                  color: Colors.black,
+                                ),
+                                onPressed: () {
+                                  _navigateToNextScreen(context);
+                                },
+                              ),
+                            ],
+                          ),
                         ],
                       ),
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                            icon: const Icon(
-                              Icons.arrow_back,
-                              color: Colors.black,
-                            ),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                          IconButton(
-                            icon: const Icon(
-                              Icons.arrow_forward,
-                              color: Colors.black,
-                            ),
-                            onPressed: () {
-                              _navigateToNextScreen(context);
-                            },
-                          ),
-                        ],
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

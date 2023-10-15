@@ -1,9 +1,7 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-
 import '../entities/store.dart';
 import '../storages/user_database.dart';
 
@@ -200,12 +198,11 @@ class Inputs extends StatelessWidget {
                         Autonomy.special,
                       ])
                         DropdownMenuItem(
-
                           value: autonomy,
                           child: Text(
                             autonomy.label,
                             style: const TextStyle(
-                                color: Color.fromARGB(255, 0, 0, 0),
+                              color: Color.fromARGB(255, 0, 0, 0),
                             ),
                           ),
                         ),
@@ -221,7 +218,6 @@ class Inputs extends StatelessWidget {
                         ),
                       ),
                       focusedBorder: UnderlineInputBorder(
-
                         borderSide: BorderSide(
                             color: Color.fromARGB(255, 90, 90, 90), width: 1),
                       ),

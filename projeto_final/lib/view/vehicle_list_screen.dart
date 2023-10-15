@@ -6,6 +6,8 @@ import 'package:projeto_final/vehicle_list_provider.dart';
 import 'package:provider/provider.dart';
 
 class VehicleListScreen extends StatelessWidget {
+  const VehicleListScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -38,10 +40,14 @@ class VehicleListScreen extends StatelessWidget {
                 ),
               ),
               suggestionsCallback: (pattern) async {
-                final List<Vehicle> vehicles = await Provider.of<VehicleController>(context, listen: false).getAllVehicles();
+                final List<Vehicle> vehicles =
+                    await Provider.of<VehicleController>(context, listen: false)
+                        .getAllVehicles();
                 return vehicles.where((vehicle) =>
-                vehicle.brand?.toLowerCase().contains(pattern.toLowerCase()) == true
-                );
+                    vehicle.brand
+                        ?.toLowerCase()
+                        .contains(pattern.toLowerCase()) ==
+                    true);
               },
               itemBuilder: (context, suggestion) {
                 return ListTile(
@@ -54,7 +60,6 @@ class VehicleListScreen extends StatelessWidget {
               },
             ),
           ),
-
           Consumer<VehicleListProvider>(
             builder: (context, controller, child) {
               if (controller.vehicles.isEmpty) {
@@ -62,7 +67,7 @@ class VehicleListScreen extends StatelessWidget {
               } else {
                 return ListView.builder(
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   itemCount: controller.vehicles.length,
                   itemBuilder: (context, index) {
                     Vehicle vehicle = controller.vehicles[index];
@@ -70,7 +75,7 @@ class VehicleListScreen extends StatelessWidget {
                     return Column(
                       children: [
                         if (index != 0)
-                          Divider(
+                          const Divider(
                             color: Color.fromRGBO(107, 148, 180, 1.0),
                             height: 3,
                             thickness: 1,
@@ -78,7 +83,7 @@ class VehicleListScreen extends StatelessWidget {
                             endIndent: 10,
                           ),
                         ListTile(
-                          leading: Icon(
+                          leading: const Icon(
                             Icons.store,
                             color: Color.fromRGBO(116, 155, 194, 1),
                             size: 30,
@@ -89,16 +94,16 @@ class VehicleListScreen extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
                               IconButton(
-                                icon: Icon(
+                                icon: const Icon(
                                   Icons.edit,
-                                  color: Color.fromRGBO(116, 155, 194, 1), // Removido o 'const' aqui
+                                  color: Color.fromRGBO(116, 155, 194, 1),
                                 ),
                                 onPressed: () async {
                                   // Adicione a lógica de edição aqui.
                                 },
                               ),
                               IconButton(
-                                icon: Icon( // Removido o 'const' aqui
+                                icon: const Icon(
                                   Icons.delete,
                                   color: Colors.red,
                                 ),

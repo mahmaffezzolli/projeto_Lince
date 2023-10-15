@@ -7,155 +7,165 @@ import '../repositories/vehicle_repositorie.dart';
 const Color fundo = Color.fromRGBO(70, 130, 169, 1);
 
 class ModelBrandScreen extends StatelessWidget {
-  const ModelBrandScreen({Key? key}) : super(key: key);
+  final TextEditingController brandController = TextEditingController();
+  final TextEditingController modelController = TextEditingController();
+
+  ModelBrandScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController modelController = TextEditingController();
-    final TextEditingController brandController = TextEditingController();
-
     return MaterialApp(
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: fundo,
       ),
       home: Scaffold(
-        body: GestureDetector(
-          onTap: () {
-            brandController.clear();
-            modelController.clear();
-            FocusScope.of(context).unfocus();
-          },
-          child: Stack(
-            children: [
-              Positioned.fill(
-                bottom: 90,
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Color.fromRGBO(246, 244, 235, 1),
-                    borderRadius: BorderRadius.vertical(
-                      bottom: Radius.circular(50),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Text(
-                          'Vehicle Registration',
-                          style: TextStyle(
-                            fontSize: 30,
-                            color: Colors.blue,
-                          ),
+        body: SingleChildScrollView(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: GestureDetector(
+              onTap: () {
+                brandController.clear();
+                modelController.clear();
+                FocusScope.of(context).unfocus();
+              },
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    bottom: 90,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Color.fromRGBO(246, 244, 235, 1),
+                        borderRadius: BorderRadius.vertical(
+                          bottom: Radius.circular(50),
                         ),
-                        const SizedBox(height: 10),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(10.0),
-                          child: const LinearProgressIndicator(
-                            value: 0.2,
-                            backgroundColor: Colors.grey,
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        BrandDropDown(
-                          brandController: brandController,
-                        ),
-                        const SizedBox(height: 20),
-                        ModelDropDown(
-                          brandController: brandController,
-                          modelController: modelController,
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            IconButton(
-                              icon: const Icon(
-                                Icons.arrow_back,
-                                color: Colors.black,
+                            const Text(
+                              'Vehicle Registration',
+                              style: TextStyle(
+                                fontSize: 30,
+                                color: Colors.blue,
                               ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
                             ),
-                            IconButton(
-                              icon: const Icon(Icons.arrow_forward,
-                                  color: Colors.black),
-                              onPressed: () {
-                                final brand = brandController.text;
-                                final model = modelController.text;
+                            const SizedBox(height: 10),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10.0),
+                              child: const LinearProgressIndicator(
+                                value: 0.2,
+                                backgroundColor: Colors.grey,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            BrandDropDown(
+                              brandController: brandController,
+                            ),
+                            const SizedBox(height: 20),
+                            ModelDropDown(
+                              brandController: brandController,
+                              modelController: modelController,
+                            ),
+                            const SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                IconButton(
+                                  icon: const Icon(
+                                    Icons.arrow_back,
+                                    color: Colors.black,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.arrow_forward,
+                                      color: Colors.black),
+                                  onPressed: () {
+                                    final brand = brandController.text;
+                                    final model = modelController.text;
 
-                                if (brand.isNotEmpty && model.isNotEmpty) {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                      builder: (context) => ManufacturePlateScreen()));
-
-                                } else {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        icon: const Icon(
-                                            Icons.error_outline_outlined),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        actionsAlignment:
-                                            MainAxisAlignment.center,
-                                        title: const Text('Error'),
-                                        backgroundColor: const Color.fromRGBO(
-                                            255, 109, 96, 1),
-                                        content: const Text(
-                                          'Por favor selecione os campos ',
-                                          style: TextStyle(color: Colors.black),
-                                        ),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            style: TextButton.styleFrom(
-                                              backgroundColor:
-                                                  const Color.fromRGBO(
-                                                      255, 234, 221, 1),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                              ),
+                                    if (brand.isNotEmpty && model.isNotEmpty) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const ManufacturePlateScreen()));
+                                    } else {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            icon: const Icon(
+                                                Icons.error_outline_outlined),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
                                             ),
-                                            child: const Text(
-                                              'OK',
+                                            actionsAlignment:
+                                                MainAxisAlignment.center,
+                                            title: const Text('Error'),
+                                            backgroundColor:
+                                                const Color.fromRGBO(
+                                                    255, 109, 96, 1),
+                                            content: const Text(
+                                              'Por favor selecione os campos ',
                                               style: TextStyle(
-                                                fontSize: 15,
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold,
-                                              ),
+                                                  color: Colors.black),
                                             ),
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                          ),
-                                        ],
+                                            actions: <Widget>[
+                                              TextButton(
+                                                style: TextButton.styleFrom(
+                                                  backgroundColor:
+                                                      const Color.fromRGBO(
+                                                          255, 234, 221, 1),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                  ),
+                                                ),
+                                                child: const Text(
+                                                  'OK',
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                              ),
+                                            ],
+                                          );
+                                        },
                                       );
-                                    },
-                                  );
-                                }
-                              },
+                                    }
+                                  },
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
     );
   }
 }
+
+// Restante do código...
 
 class BrandDropDown extends StatelessWidget {
   final TextEditingController brandController;

@@ -90,18 +90,19 @@ class MyApp extends StatelessWidget {
       initialRoute: "/home",
       routes: {
         "/start": (context) => const Start(),
-        "/login_page": (context) => const LoginPage(),
-        "/register": (context) => RegisterScreen(),
-        "/home": (context) => const HomeScreen(),
-        "/model_brand": (context) => const ModelBrandScreen(),
-        "/manufacture_plate": (context) => const ManufacturePlateScreen(),
-        "/vehicle_year_photo": (context) => const VehicleYearPhotoScreen(),
-        "/price_purchase": (context) =>  PricePurchaseDateScreen(),
-        "/initial": (context) => const Initial(),
-        "/storeList": (context) => StoreList(),
-        "/settings": (context) => const Settings(),
-        "/document_name": (context) => DocumentNameAndDatePriceScreen(),
-        "/vehicle_details": (context) => VehicleListScreen(),
+        "/login_page": (context) => const LoginPage(), //problems
+        "/register": (context) => RegisterScreen(), //correct
+        "/home": (context) => const HomeScreen(),//correct
+        "/model_brand": (context) =>  ModelBrandScreen(), //correct
+        "/manufacture_plate": (context) => const ManufacturePlateScreen(),//correct
+        "/vehicle_year_photo": (context) => const VehicleYearPhotoScreen(), //correct
+        "/price_purchase": (context) =>  PricePurchaseDateScreen(), //problems
+        "/initial": (context) => const Initial(), //correct
+        "/storeList": (context) => const StoreList(),//correct
+        "/settings": (context) => const Settings(),//correct
+        "/document_name": (context) => const DocumentNameAndDatePriceScreen(),//correct
+        "/vehicle_list": (context) => const VehicleListScreen(), //correct
+        "/plate": (context) => const ManufacturePlateScreen(),
       },
     );
   }

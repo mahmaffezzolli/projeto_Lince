@@ -7,6 +7,8 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:provider/provider.dart';
 
 class StoreList extends StatelessWidget {
+  const StoreList({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -60,8 +62,7 @@ class StoreList extends StatelessWidget {
             },
           ),
         ),
-        Expanded(
-        child: Consumer<StoreListProvider>(
+        Expanded(child: Consumer<StoreListProvider>(
           builder: (context, controller, child) {
             return FutureBuilder<List<Store>>(
               key: UniqueKey(),
@@ -90,7 +91,7 @@ class StoreList extends StatelessWidget {
                               endIndent: 10,
                             ),
                           ListTile(
-                            leading: Icon(
+                            leading: const Icon(
                               Icons.store,
                               color: Color.fromRGBO(116, 155, 194, 1),
                               size: 30,
@@ -115,8 +116,6 @@ class StoreList extends StatelessWidget {
                                     );
                                     if (updatedStore != null) {
                                       controller.updateStore(store);
-
-
                                     }
                                   },
                                 ),
@@ -133,7 +132,8 @@ class StoreList extends StatelessWidget {
                                           title:
                                               const Text('Confirmar Exclusão'),
                                           content: const Text(
-                                              'Tem certeza de que deseja excluir esta loja?'),
+                                              'Tem certeza de que deseja excluir '
+                                                  'esta loja?'),
                                           actions: <Widget>[
                                             TextButton(
                                               child: const Text('Cancelar'),
@@ -145,7 +145,6 @@ class StoreList extends StatelessWidget {
                                               child: const Text('Excluir'),
                                               onPressed: () async {
                                                 controller.deleteStore(store);
-
 
                                                 Navigator.of(context).pop();
                                               },

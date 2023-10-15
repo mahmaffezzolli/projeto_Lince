@@ -28,21 +28,26 @@ class LoginPage extends StatelessWidget {
       ),
       home: Scaffold(
         appBar: null,
-        body: Stack(
-          children: [
-            Positioned.fill(
-              bottom: 90,
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Color.fromRGBO(246, 244, 235, 1),
-                  borderRadius: BorderRadius.vertical(
-                    bottom: Radius.circular(50),
+        body: SingleChildScrollView(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  bottom: 90,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Color.fromRGBO(246, 244, 235, 1),
+                      borderRadius: BorderRadius.vertical(
+                        bottom: Radius.circular(50),
+                      ),
+                    ),
+                    child: const Inputs(),
                   ),
                 ),
-                child: const Inputs(),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

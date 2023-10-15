@@ -35,7 +35,7 @@ class Settings extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.settings,
                           color: Colors.black,
                           size: 30,
@@ -60,8 +60,8 @@ class Settings extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 30.0),
                 child: Row(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15.0),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 15.0),
                       child: Row(
                         children: [
                           Icon(
@@ -69,7 +69,7 @@ class Settings extends StatelessWidget {
                             color: Colors.black,
                             size: 24.0,
                           ),
-                          const SizedBox(width: 30),
+                          SizedBox(width: 30),
                           Text(
                             'Language:',
                             style: TextStyle(

@@ -7,14 +7,19 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 const Color fundo = Color.fromRGBO(70, 130, 169, 1);
 
 class ManufacturePlateScreen extends StatefulWidget {
-  const ManufacturePlateScreen({Key? key}) : super(key: key);
+  final String? initialManufactureYear;
+  final String? initialPlate;
 
+  const ManufacturePlateScreen(
+      {Key? key, this.initialManufactureYear, this.initialPlate})
+      : super(key: key);
   @override
-  _ManufacturePlateScreenState createState() => _ManufacturePlateScreenState();
+  ManufacturePlateScreenState createState() => ManufacturePlateScreenState();
 }
 
-class _ManufacturePlateScreenState extends State<ManufacturePlateScreen> {
-  final TextEditingController _manufactureYearController = TextEditingController();
+class ManufacturePlateScreenState extends State<ManufacturePlateScreen> {
+  final TextEditingController _manufactureYearController =
+      TextEditingController();
   final TextEditingController _plateController = TextEditingController();
 
   final maskFormatter = MaskTextInputFormatter(
@@ -37,8 +42,8 @@ class _ManufacturePlateScreenState extends State<ManufacturePlateScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => VehicleYearPhotoScreen()));    }
-    else {
+              builder: (context) => const VehicleYearPhotoScreen()));
+    } else {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -90,127 +95,132 @@ class _ManufacturePlateScreenState extends State<ManufacturePlateScreen> {
       ),
       home: Scaffold(
         appBar: null,
-        body: Stack(
-          children: [
-            Positioned.fill(
-              bottom: 90,
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Color.fromRGBO(246, 244, 235, 1),
-                  borderRadius: BorderRadius.vertical(
-                    bottom: Radius.circular(50),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Vehicle Registration',
-                        style: TextStyle(
-                          fontSize: 30,
-                          color: Colors.blue,
-                        ),
+        body: SingleChildScrollView(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  bottom: 90,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Color.fromRGBO(246, 244, 235, 1),
+                      borderRadius: BorderRadius.vertical(
+                        bottom: Radius.circular(50),
                       ),
-                      const SizedBox(height: 20),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10.0),
-                        child: const LinearProgressIndicator(
-                          value: 0.4,
-                          backgroundColor: Colors.grey,
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        style: const TextStyle(color: Colors.black),
-                        controller: _manufactureYearController,
-                        onChanged: (value) {
-                          vehicleProvider.setManufactureYear(value);
-                        },
-                        decoration: const InputDecoration(
-                          labelText: 'Manufacture Year',
-                          labelStyle: TextStyle(color: Colors.black),
-                          suffixIcon: Icon(
-                            Icons.calendar_today,
-                            color: Colors.black,
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.blue, width: 2.0),
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.black, width: 1.0),
-                          ),
-                          hintStyle: TextStyle(color: Colors.black),
-                        ),
-                        onTap: () {
-                          _pickManufactureYear(context);
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        style: const TextStyle(color: Colors.black),
-                        controller: _plateController,
-                        inputFormatters: [maskFormatter],
-                        decoration: const InputDecoration(
-                          labelText: 'License Plate (e.g., ABC-1234)',
-                          labelStyle: TextStyle(color: Colors.black),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.blue, width: 2.0),
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.black, width: 1.0),
-                          ),
-                          hintStyle: TextStyle(color: Colors.black),
-                        ),
-                        onChanged: (value) {
-                          // Convert the entered text to uppercase
-                          _plateController.value =
-                              _plateController.value.copyWith(
-                            text: value.toUpperCase(),
-                            selection: TextSelection(
-                              baseOffset: value.length,
-                              extentOffset: value.length,
-                            ),
-                            composing: TextRange.empty,
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          IconButton(
-                            icon: const Icon(
-                              Icons.arrow_back,
-                              color: Colors.black,
+                          const Text(
+                            'Vehicle Registration',
+                            style: TextStyle(
+                              fontSize: 30,
+                              color: Colors.blue,
                             ),
-                            onPressed: () {
-                              Navigator.of(context).pop();
+                          ),
+                          const SizedBox(height: 20),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10.0),
+                            child: const LinearProgressIndicator(
+                              value: 0.4,
+                              backgroundColor: Colors.grey,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          TextFormField(
+                            style: const TextStyle(color: Colors.black),
+                            controller: _manufactureYearController,
+                            onChanged: (value) {
+                              vehicleProvider.setManufactureYear(value);
+                            },
+                            decoration: const InputDecoration(
+                              labelText: 'Manufacture Year',
+                              labelStyle: TextStyle(color: Colors.black),
+                              suffixIcon: Icon(
+                                Icons.calendar_today,
+                                color: Colors.black,
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.blue, width: 2.0),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.black, width: 1.0),
+                              ),
+                              hintStyle: TextStyle(color: Colors.black),
+                            ),
+                            onTap: () {
+                              _pickManufactureYear(context);
                             },
                           ),
-                          IconButton(
-                            icon: const Icon(
-                              Icons.arrow_forward,
-                              color: Colors.black,
+                          const SizedBox(height: 20),
+                          TextFormField(
+                            style: const TextStyle(color: Colors.black),
+                            controller: _plateController,
+                            inputFormatters: [maskFormatter],
+                            decoration: const InputDecoration(
+                              labelText: 'License Plate (e.g., ABC-1234)',
+                              labelStyle: TextStyle(color: Colors.black),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.blue, width: 2.0),
+                              ),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.black, width: 1.0),
+                              ),
+                              hintStyle: TextStyle(color: Colors.black),
                             ),
-                            onPressed: () {
-                              _navigateToNextScreen(context);
+                            onChanged: (value) {
+                              // Convert the entered text to uppercase
+                              _plateController.value =
+                                  _plateController.value.copyWith(
+                                text: value.toUpperCase(),
+                                selection: TextSelection(
+                                  baseOffset: value.length,
+                                  extentOffset: value.length,
+                                ),
+                                composing: TextRange.empty,
+                              );
                             },
+                          ),
+                          const SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.arrow_back,
+                                  color: Colors.black,
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.arrow_forward,
+                                  color: Colors.black,
+                                ),
+                                onPressed: () {
+                                  _navigateToNextScreen(context);
+                                },
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

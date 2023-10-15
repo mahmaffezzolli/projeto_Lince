@@ -6,12 +6,14 @@ import '../repositories/vehicle_repositorie.dart';
 const Color fundo = Color.fromRGBO(70, 130, 169, 1);
 
 class DocumentNameAndDatePriceScreen extends StatefulWidget {
+  const DocumentNameAndDatePriceScreen({super.key});
+
   @override
-  _DocumentNameAndDatePriceScreenState createState() =>
-      _DocumentNameAndDatePriceScreenState();
+  DocumentNameAndDatePriceScreenState createState() =>
+      DocumentNameAndDatePriceScreenState();
 }
 
-class _DocumentNameAndDatePriceScreenState
+class DocumentNameAndDatePriceScreenState
     extends State<DocumentNameAndDatePriceScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _cnpjController = TextEditingController();
@@ -22,11 +24,11 @@ class _DocumentNameAndDatePriceScreenState
 
   void _selectDate(BuildContext context) async {
     final DateTime picked = (await showDatePicker(
-      context: context,
-      initialDate: _selectedDate ?? DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
-    )) ??
+          context: context,
+          initialDate: _selectedDate ?? DateTime.now(),
+          firstDate: DateTime(1900),
+          lastDate: DateTime.now(),
+        )) ??
         DateTime.now();
 
     if (picked != _selectedDate) {
@@ -38,14 +40,17 @@ class _DocumentNameAndDatePriceScreenState
   }
 
   void _navigateToNextScreen(BuildContext context) {
-    final vehicleProvider = Provider.of<VehicleProvider>(context, listen: false);
+    final vehicleProvider =
+        Provider.of<VehicleProvider>(context, listen: false);
     final cnpj = _cnpjController.text;
     final name = _storeNameController.text;
     final price = _priceController.text;
     final purchaseDate = _purchaseDateController.text;
 
-    if (cnpj.isNotEmpty && name.isNotEmpty && price.isNotEmpty && purchaseDate.isNotEmpty) {
-
+    if (cnpj.isNotEmpty &&
+        name.isNotEmpty &&
+        price.isNotEmpty &&
+        purchaseDate.isNotEmpty) {
       Navigator.pushNamed(context, '/next_screen');
       vehicleProvider.reset();
       Navigator.popUntil(
@@ -150,86 +155,104 @@ class _DocumentNameAndDatePriceScreenState
                               child: Form(
                                 key: _formKey,
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
                                   children: [
                                     TextFormField(
-                                      style: TextStyle(color: Colors.black),
+                                      style:
+                                          const TextStyle(color: Colors.black),
                                       controller: _cnpjController,
                                       inputFormatters: [maskFormatter],
                                       decoration: const InputDecoration(
                                         labelText: 'CPF',
                                         labelStyle: TextStyle(
-                                          color: Color.fromARGB(255, 90, 90, 90),
+                                          color:
+                                              Color.fromARGB(255, 90, 90, 90),
                                         ),
                                         icon: Icon(
                                           Icons.text_snippet_sharp,
-                                          color: Color.fromARGB(255, 90, 90, 90),
+                                          color:
+                                              Color.fromARGB(255, 90, 90, 90),
                                         ),
                                         enabledBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Color.fromARGB(255, 90, 90, 90),
+                                            color:
+                                                Color.fromARGB(255, 90, 90, 90),
                                           ),
                                         ),
                                         focusedBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Color.fromARGB(255, 90, 90, 90),
+                                            color:
+                                                Color.fromARGB(255, 90, 90, 90),
                                           ),
                                         ),
                                       ),
                                     ),
                                     TextFormField(
-                                      style: const TextStyle(color: Colors.black),
+                                      style:
+                                          const TextStyle(color: Colors.black),
                                       controller: _storeNameController,
                                       decoration: const InputDecoration(
                                         labelText: 'Nome do comprador',
                                         labelStyle: TextStyle(
-                                          color: Color.fromARGB(255, 90, 90, 90),
+                                          color:
+                                              Color.fromARGB(255, 90, 90, 90),
                                         ),
                                         icon: Icon(
                                           Icons.person,
-                                          color: Color.fromARGB(255, 90, 90, 90),
+                                          color:
+                                              Color.fromARGB(255, 90, 90, 90),
                                         ),
                                         enabledBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Color.fromARGB(255, 90, 90, 90),
+                                            color:
+                                                Color.fromARGB(255, 90, 90, 90),
                                           ),
                                         ),
                                         focusedBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Color.fromARGB(255, 90, 90, 90),
+                                            color:
+                                                Color.fromARGB(255, 90, 90, 90),
                                           ),
                                         ),
                                       ),
                                     ),
                                     TextFormField(
-                                      style: TextStyle(color: Colors.black),
+                                      style:
+                                          const TextStyle(color: Colors.black),
                                       controller: _priceController,
-                                      keyboardType: const TextInputType.numberWithOptions(
+                                      keyboardType:
+                                          const TextInputType.numberWithOptions(
                                         decimal: true,
                                       ),
                                       decoration: const InputDecoration(
                                         labelText: 'Preço pago pelo comprador',
                                         labelStyle: TextStyle(
-                                          color: Color.fromARGB(255, 90, 90, 90),
+                                          color:
+                                              Color.fromARGB(255, 90, 90, 90),
                                         ),
                                         icon: Icon(
                                           Icons.price_check,
-                                          color: Color.fromARGB(255, 90, 90, 90),
+                                          color:
+                                              Color.fromARGB(255, 90, 90, 90),
                                         ),
                                         enabledBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Color.fromARGB(255, 90, 90, 90),
+                                            color:
+                                                Color.fromARGB(255, 90, 90, 90),
                                           ),
                                         ),
                                         focusedBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Color.fromARGB(255, 90, 90, 90),
+                                            color:
+                                                Color.fromARGB(255, 90, 90, 90),
                                           ),
                                         ),
                                       ),
                                     ),
                                     TextFormField(
-                                      style: TextStyle(color: Colors.black),
+                                      style:
+                                          const TextStyle(color: Colors.black),
                                       controller: _purchaseDateController,
                                       readOnly: true,
                                       onTap: () {
@@ -238,20 +261,24 @@ class _DocumentNameAndDatePriceScreenState
                                       decoration: const InputDecoration(
                                         labelText: 'Data da venda',
                                         labelStyle: TextStyle(
-                                          color: Color.fromARGB(255, 90, 90, 90),
+                                          color:
+                                              Color.fromARGB(255, 90, 90, 90),
                                         ),
                                         icon: Icon(
                                           Icons.calendar_today,
-                                          color: Color.fromARGB(255, 90, 90, 90),
+                                          color:
+                                              Color.fromARGB(255, 90, 90, 90),
                                         ),
                                         enabledBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Color.fromARGB(255, 90, 90, 90),
+                                            color:
+                                                Color.fromARGB(255, 90, 90, 90),
                                           ),
                                         ),
                                         focusedBorder: UnderlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Color.fromARGB(255, 90, 90, 90),
+                                            color:
+                                                Color.fromARGB(255, 90, 90, 90),
                                           ),
                                         ),
                                       ),
@@ -263,7 +290,8 @@ class _DocumentNameAndDatePriceScreenState
                             Padding(
                               padding: const EdgeInsets.all(20.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   IconButton(
                                     icon: const Icon(

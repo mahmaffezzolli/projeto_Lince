@@ -14,7 +14,7 @@ import 'plate_screen.dart';
 const Color fundo = Color.fromRGBO(255, 255, 255, 1);
 
 class Initial extends StatelessWidget {
-  const Initial({Key? key});
+  const Initial({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class Initial extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ModelBrandScreen(),
+                        builder: (context) =>  ModelBrandScreen(),
                       ),
                     );
                   },
@@ -83,10 +83,10 @@ class Initial extends StatelessWidget {
                   text: 'Lista de carros',
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                        builder: (context) => VehicleListScreen(),
-                    ),
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const VehicleListScreen(),
+                      ),
                     );
                   },
                 ),
@@ -103,7 +103,8 @@ class Initial extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => DocumentNameAndDatePriceScreen(),
+                        builder: (context) =>
+                            const DocumentNameAndDatePriceScreen(),
                       ),
                     );
                   },
@@ -139,7 +140,7 @@ class Initial extends StatelessWidget {
         width: 150,
         height: 150,
         decoration: BoxDecoration(
-          color: Color.fromRGBO(145, 200, 228, 1),
+          color: const Color.fromRGBO(145, 200, 228, 1),
           borderRadius: BorderRadius.circular(10.0),
         ),
         child: Column(
