@@ -3,6 +3,7 @@ import 'package:sqflite/sqflite.dart';
 import '../entities/store.dart';
 
 class StoreController {
+
   Future<Database> initDatabase() async {
     final database = await getDatabase();
     return database;

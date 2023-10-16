@@ -94,7 +94,7 @@ class ModelBrandScreen extends StatelessWidget {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const ManufacturePlateScreen()));
+                                              const ManufacturePlateScreen()));
                                     } else {
                                       showDialog(
                                         context: context,
@@ -104,14 +104,14 @@ class ModelBrandScreen extends StatelessWidget {
                                                 Icons.error_outline_outlined),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(10),
+                                              BorderRadius.circular(10),
                                             ),
                                             actionsAlignment:
-                                                MainAxisAlignment.center,
+                                            MainAxisAlignment.center,
                                             title: const Text('Error'),
                                             backgroundColor:
-                                                const Color.fromRGBO(
-                                                    255, 109, 96, 1),
+                                            const Color.fromRGBO(
+                                                255, 109, 96, 1),
                                             content: const Text(
                                               'Por favor selecione os campos ',
                                               style: TextStyle(
@@ -121,12 +121,12 @@ class ModelBrandScreen extends StatelessWidget {
                                               TextButton(
                                                 style: TextButton.styleFrom(
                                                   backgroundColor:
-                                                      const Color.fromRGBO(
-                                                          255, 234, 221, 1),
+                                                  const Color.fromRGBO(
+                                                      255, 234, 221, 1),
                                                   shape: RoundedRectangleBorder(
                                                     borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
+                                                    BorderRadius.circular(
+                                                        20),
                                                   ),
                                                 ),
                                                 child: const Text(
@@ -274,7 +274,7 @@ class ModelDropDown extends StatelessWidget {
           suggestionsCallback: (pattern) async {
             final selectedBrandName = brandController.text;
             final selectedBrand =
-                vehicleProvider.getSelectedBrand(selectedBrandName);
+            vehicleProvider.getSelectedBrand(selectedBrandName);
 
             final selectedBrandId = selectedBrand['id'];
 

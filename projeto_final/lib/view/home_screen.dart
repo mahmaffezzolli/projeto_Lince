@@ -9,7 +9,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 const Color fundo = Color.fromRGBO(255, 255, 255, 1);
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  final String? lastUser;
+  const HomeScreen({Key? key, this.lastUser}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class HomeScreen extends StatelessWidget {
       home: Consumer<ChangeNotifierProviderNavigation>(
         builder: (context, navigationState, _) {
           final selectedPage =
-          navigationState.widgetOptions[navigationState.selectedIndex];
+              navigationState.widgetOptions[navigationState.selectedIndex];
 
           return Scaffold(
             body: Center(
@@ -37,12 +38,12 @@ class HomeScreen extends StatelessWidget {
                   label: 'Business',
                   backgroundColor: Color.fromRGBO(116, 155, 194, 1),
                 ),
-                 BottomNavigationBarItem(
-                  icon:const Icon(Icons.add_circle_outline),
+                BottomNavigationBarItem(
+                  icon: const Icon(Icons.add_circle_outline),
                   label: AppLocalizations.of(context)!.register,
                   backgroundColor: const Color.fromRGBO(145, 200, 228, 1),
                 ),
-                 BottomNavigationBarItem(
+                BottomNavigationBarItem(
                   icon: const Icon(Icons.settings),
                   label: AppLocalizations.of(context)!.title,
                   backgroundColor: const Color.fromRGBO(181, 212, 228, 1),
@@ -52,7 +53,6 @@ class HomeScreen extends StatelessWidget {
               selectedItemColor: Colors.black,
               onTap: navigationState.onItemTapped,
             ),
-
           );
         },
       ),
@@ -62,12 +62,13 @@ class HomeScreen extends StatelessWidget {
 
 class ChangeNotifierProviderNavigation with ChangeNotifier {
   int _selectedIndex = 0;
+  String? lastUser; // Adicione a propriedade lastUser
 
   int get selectedIndex => _selectedIndex;
 
   final List<Widget> widgetOptions = <Widget>[
     const Initial(),
-    StoreList(),
+    const StoreList(),
     RegisterScreen(),
     const Settings(),
   ];

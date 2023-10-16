@@ -113,13 +113,14 @@ CREATE TABLE $tableName (
   $id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
   $brandColumn TEXT NOT NULL,
   $modelColumn TEXT NOT NULL,
-  $manufactureYearColumn TEXT NOT NULL,
+  $manufactureYearColumn INTEGER NOT NULL,
   $plateColumn TEXT NOT NULL,
-  $vehicleYearColumn TEXT NOT NULL,
-  $priceColumn TEXT NOT NULL,
+  $vehicleYearColumn INTEGER NOT NULL,
+  $priceColumn REAL NOT NULL,
   $purchaseDateColumn TEXT NOT NULL
 )
 ''';
+
 
   static const String tableName = 'vehicle';
   static const String id = 'id';

@@ -93,7 +93,7 @@ class MyApp extends StatelessWidget {
         "/login_page": (context) => const LoginPage(), //problems
         "/register": (context) => RegisterScreen(), //correct
         "/home": (context) => const HomeScreen(),//correct
-        "/model_brand": (context) =>  ModelBrandScreen(), //correct
+        "/model_brand": (context) =>   ModelBrandScreen(), //correct
         "/manufacture_plate": (context) => const ManufacturePlateScreen(),//correct
         "/vehicle_year_photo": (context) => const VehicleYearPhotoScreen(), //correct
         "/price_purchase": (context) =>  PricePurchaseDateScreen(), //problems

@@ -15,18 +15,18 @@ class PricePurchaseDateScreen extends StatelessWidget {
   final TextEditingController modelController = TextEditingController();
   final TextEditingController brandController = TextEditingController();
   final TextEditingController manufactureYearController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController plateController = TextEditingController();
   final TextEditingController dateController = TextEditingController();
 
   void _selectDate(
       BuildContext context, ValueSetter<String> onDateSelected) async {
     final DateTime picked = (await showDatePicker(
-          context: context,
-          initialDate: DateTime.now(),
-          firstDate: DateTime(1900),
-          lastDate: DateTime.now(),
-        )) ??
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    )) ??
         DateTime.now();
 
     onDateSelected(DateFormat('yyyy-MM-dd').format(picked));
@@ -35,7 +35,7 @@ class PricePurchaseDateScreen extends StatelessWidget {
   void _registerVehicle(BuildContext context) {
     try {
       final vehicleListProvider =
-          Provider.of<VehicleListProvider>(context, listen: false);
+      Provider.of<VehicleListProvider>(context, listen: false);
 
       final success = vehicleListProvider.insertVehicle(
         priceController.text,
@@ -123,7 +123,7 @@ class PricePurchaseDateScreen extends StatelessWidget {
                                 style: const TextStyle(color: Colors.black),
                                 controller: priceController,
                                 keyboardType:
-                                    const TextInputType.numberWithOptions(
+                                const TextInputType.numberWithOptions(
                                   decimal: true,
                                 ),
                                 decoration: const InputDecoration(
